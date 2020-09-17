@@ -24,9 +24,12 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.0.5
-  connectivity_platform_interface: ^1.0.2
-  connectivity_macos: ^0.1.0
-  connectivity_for_web: ^0.3.0
+  connectivity_platform_interface:
+    path: ../connectivity_platform_interface
+  connectivity_macos:
+    path: ../connectivity_macos
+  connectivity_for_web:
+    path: ../connectivity_for_web
 
 dev_dependencies:
   flutter_test:

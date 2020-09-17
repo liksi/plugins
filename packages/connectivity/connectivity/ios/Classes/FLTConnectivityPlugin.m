@@ -7,6 +7,7 @@
 #import "Reachability/Reachability.h"
 
 #import <CoreLocation/CoreLocation.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import "FLTConnectivityLocationHandler.h"
 #import "SystemConfiguration/CaptiveNetwork.h"
 
@@ -91,15 +92,50 @@
   return address;
 }
 
+- (NSString*)getConnectionSubtype:(Reachability*)reachability {
+  if ([reachability currentReachabilityStatus] == NotReachable) {
+    return @"none";
+  }
+
+  CTTelephonyNetworkInfo* netinfo = [[CTTelephonyNetworkInfo alloc] init];
+  NSString* carrierType = netinfo.currentRadioAccessTechnology;
+
+  if ([carrierType isEqualToString:CTRadioAccessTechnologyGPRS]) {
+    return @"gprs";
+  } else if ([carrierType isEqualToString:CTRadioAccessTechnologyEdge]) {
+    return @"edge";
+  } else if ([carrierType isEqualToString:CTRadioAccessTechnologyWCDMA]) {
+    return @"cdma";
+  } else if ([carrierType isEqualToString:CTRadioAccessTechnologyHSDPA]) {
+    return @"hsdpa";
+  } else if ([carrierType isEqualToString:CTRadioAccessTechnologyHSUPA]) {
+    return @"hsupa";
+  } else if ([carrierType isEqualToString:CTRadioAccessTechnologyCDMA1x]) {
+    return @"cdma";
+  } else if ([carrierType isEqualToString:CTRadioAccessTechnologyCDMAEVDORev0]) {
+    return @"evdo_0";
+  } else if ([carrierType isEqualToString:CTRadioAccessTechnologyCDMAEVDORevA]) {
+    return @"evdo_a";
+  } else if ([carrierType isEqualToString:CTRadioAccessTechnologyCDMAEVDORevB]) {
+    return @"evdo_b";
+  } else if ([carrierType isEqualToString:CTRadioAccessTechnologyeHRPD]) {
+    return @"ehrpd";
+  } else if ([carrierType isEqualToString:CTRadioAccessTechnologyLTE]) {
+    return @"lte";
+  }
+  return @"unknown";
+}
+
 - (NSString*)statusFromReachability:(Reachability*)reachability {
   NetworkStatus status = [reachability currentReachabilityStatus];
+  NSString* subtype = [self getConnectionSubtype:[Reachability reachabilityForInternetConnection]];
   switch (status) {
     case NotReachable:
-      return @"none";
+      return [NSString stringWithFormat:@"%@,%@", @"none", subtype];
     case ReachableViaWiFi:
-      return @"wifi";
+      return [NSString stringWithFormat:@"%@,%@", @"wifi", subtype];
     case ReachableViaWWAN:
-      return @"mobile";
+      return [NSString stringWithFormat:@"%@,%@", @"mobile", subtype];
   }
 }
 
@@ -117,6 +153,8 @@
     result([self getBSSID]);
   } else if ([call.method isEqualToString:@"wifiIPAddress"]) {
     result([self getWifiIP]);
+  } else if ([call.method isEqualToString:@"subtype"]) {
+    result([self getConnectionSubtype:[Reachability reachabilityForInternetConnection]]);
   } else if ([call.method isEqualToString:@"getLocationServiceAuthorization"]) {
     result([self convertCLAuthorizationStatusToString:[FLTConnectivityLocationHandler
                                                           locationAuthorizationStatus]]);

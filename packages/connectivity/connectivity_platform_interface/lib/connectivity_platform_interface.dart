@@ -43,10 +43,24 @@ abstract class ConnectivityPlatform extends PlatformInterface {
     throw UnimplementedError('checkConnectivity() has not been implemented.');
   }
 
+  /// Checks the connection info of the device.
+  Future<ConnectivityDetailedResult> checkConnectivityInfo() {
+    throw UnimplementedError('checkConnectivityInfo() has not been implemented.');
+  }
+
+  /// Checks the network subtype of the device.
+  Future<ConnectionSubtype> getNetworkSubtype() {
+    throw UnimplementedError('getNetworkSubtype() has not been implemented.');
+  }
+
   /// Returns a Stream of ConnectivityResults changes.
   Stream<ConnectivityResult> get onConnectivityChanged {
-    throw UnimplementedError(
-        'get onConnectivityChanged has not been implemented.');
+    throw UnimplementedError('get onConnectivityChanged has not been implemented.');
+  }
+
+  /// Returns a Stream of ConnectivityDetailedResult changes.
+  Stream<ConnectivityDetailedResult> get onConnectivityInfoChanged {
+    throw UnimplementedError('get onConnectivityInfoChanged has not been implemented.');
   }
 
   /// Obtains the wifi name (SSID) of the connected network
@@ -65,15 +79,12 @@ abstract class ConnectivityPlatform extends PlatformInterface {
   }
 
   /// Request to authorize the location service (Only on iOS).
-  Future<LocationAuthorizationStatus> requestLocationServiceAuthorization(
-      {bool requestAlwaysLocationUsage = false}) {
-    throw UnimplementedError(
-        'requestLocationServiceAuthorization() has not been implemented.');
+  Future<LocationAuthorizationStatus> requestLocationServiceAuthorization({bool requestAlwaysLocationUsage = false}) {
+    throw UnimplementedError('requestLocationServiceAuthorization() has not been implemented.');
   }
 
   /// Get the current location service authorization (Only on iOS).
   Future<LocationAuthorizationStatus> getLocationServiceAuthorization() {
-    throw UnimplementedError(
-        'getLocationServiceAuthorization() has not been implemented.');
+    throw UnimplementedError('getLocationServiceAuthorization() has not been implemented.');
   }
 }

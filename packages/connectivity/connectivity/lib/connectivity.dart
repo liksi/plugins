@@ -4,12 +4,11 @@
 
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:connectivity_platform_interface/connectivity_platform_interface.dart';
+import 'package:flutter/services.dart';
 
-// Export enums from the platform_interface so plugin users can use them directly.
 export 'package:connectivity_platform_interface/connectivity_platform_interface.dart'
-    show ConnectivityResult, LocationAuthorizationStatus;
+    show ConnectivityResult, LocationAuthorizationStatus, ConnectivityDetailedResult, ConnectionSubtype;
 
 /// Discover network connectivity configurations: Distinguish between WI-FI and cellular, check WI-FI status and more.
 class Connectivity {
@@ -37,6 +36,11 @@ class Connectivity {
     return _platform.onConnectivityChanged;
   }
 
+  /// Fires when connectivity info changes.
+  Stream<ConnectivityDetailedResult> get onConnectivityInfoChanged {
+    return _platform.onConnectivityInfoChanged;
+  }
+
   /// Checks the connection status of the device.
   ///
   /// Do not use the result of this function to decide whether you can reliably
@@ -45,6 +49,16 @@ class Connectivity {
   /// Instead listen for connectivity changes via [onConnectivityChanged] stream.
   Future<ConnectivityResult> checkConnectivity() {
     return _platform.checkConnectivity();
+  }
+
+  /// Checks connectivity info, [ConnectivityDetailedResult]
+  Future<ConnectivityDetailedResult> checkConnectivityInfo() {
+    return _platform.checkConnectivityInfo();
+  }
+
+  /// Checks the network subtype of the device.
+  Future<ConnectionSubtype> getNetworkSubtype() {
+    return _platform.getNetworkSubtype();
   }
 
   /// Obtains the wifi name (SSID) of the connected network

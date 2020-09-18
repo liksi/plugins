@@ -12,7 +12,10 @@ flutter:
 
 dependencies:
   connectivity_platform_interface:
-    path: ../connectivity_platform_interface
+    git:
+      url: https://github.com/liksi/plugins # Url de l'emplacement .git
+      path: packages/connectivity/connectivity_platform_interface # Chemin jusqu'au Fork
+      ref: liksi-fork # Reference du commit souhaité
   js: ^0.6.1+1
   flutter_web_plugins:
     sdk: flutter

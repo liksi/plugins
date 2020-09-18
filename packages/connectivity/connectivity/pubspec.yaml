@@ -25,11 +25,23 @@ dependencies:
     sdk: flutter
   meta: ^1.0.5
   connectivity_platform_interface:
-    path: ../connectivity_platform_interface
+    git:
+      url: https://github.com/liksi/plugins # Url de l'emplacement .git
+      path: packages/connectivity/connectivity_platform_interface # Chemin jusqu'au Fork
+      ref: 544fca99550a39973011721fd35b9488f1e48cc0 # Reference du commit souhaité
+#    path: ../connectivity_platform_interface
   connectivity_macos:
-    path: ../connectivity_macos
+    git:
+      url: https://github.com/liksi/plugins # Url de l'emplacement .git
+      path: packages/connectivity/connectivity_macos # Chemin jusqu'au Fork
+      ref: 544fca99550a39973011721fd35b9488f1e48cc0 # Reference du commit souhaité
+#    path: ../connectivity_macos
   connectivity_for_web:
-    path: ../connectivity_for_web
+    git:
+      url: https://github.com/liksi/plugins # Url de l'emplacement .git
+      path: packages/connectivity/connectivity_for_web # Chemin jusqu'au Fork
+      ref: 544fca99550a39973011721fd35b9488f1e48cc0 # Reference du commit souhaité
+#    path: ../connectivity_for_web
 
 dev_dependencies:
   flutter_test:

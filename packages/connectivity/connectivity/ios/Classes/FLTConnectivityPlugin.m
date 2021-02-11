@@ -98,7 +98,11 @@
   }
 
   CTTelephonyNetworkInfo* netinfo = [[CTTelephonyNetworkInfo alloc] init];
-  NSString* carrierType = netinfo.currentRadioAccessTechnology;
+  NSDictionary<NSString*, NSString*>* carrierByType = netinfo.serviceCurrentRadioAccessTechnology;
+  NSArray *carriers = [carrierByType allValues];
+  NSString *carrierType = carriers.firstObject;
+  BOOL eq = [carrierType isEqualToString:CTRadioAccessTechnologyLTE];
+  NSLog(@"CarrierType is %@", carrierType);
 
   if ([carrierType isEqualToString:CTRadioAccessTechnologyGPRS]) {
     return @"gprs";
